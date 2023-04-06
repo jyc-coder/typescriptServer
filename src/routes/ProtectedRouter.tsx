@@ -5,11 +5,10 @@ import { Outlet, useNavigate } from 'react-router-dom'
 
 export default function ProtectedRouter() {
     const isAuthenticated = verifyToken()
-    const token = getCookie('accessToken')
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!token || isAuthenticated === 'FAILED') {
+        if (isAuthenticated === 'FAILED') {
             //토큰이 없거나, 인증 실패 시 로그인 페이지로
             alert('로그인이 필요합니다')
             navigate('/login')
