@@ -27,3 +27,8 @@ export const verify = async () => {
         console.log(error)
     }
 }
+
+export const refresh = async () => {
+    const { data } = await axiosInstance.get<AuthResponse>('/api/auth/refresh')
+    return data
+}
