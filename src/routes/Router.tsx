@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import LoginPage from '../pages/LoginPage'
 import PostCreatePage from '../pages/PostCreatePage'
 import PostsPage from '../pages/PostsPage'
+import ProtectedRouter from './ProtectedRouter'
 
 function Router() {
     return (
@@ -9,7 +10,9 @@ function Router() {
             <Routes>
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/posts" element={<PostsPage />} />
-                <Route path="/post/new" element={<PostCreatePage />} />
+                <Route element={<ProtectedRouter />}>
+                    <Route path="/post/new" element={<PostCreatePage />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     )
