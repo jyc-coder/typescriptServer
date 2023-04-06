@@ -2,15 +2,21 @@ import React, { useEffect } from 'react'
 import verifyToken from '../hooks/verifyToken'
 import { getCookie } from '../utils/cookies'
 import { Outlet, useNavigate } from 'react-router-dom'
+import { useQueryClient } from 'react-query'
 
 export default function ProtectedRouter() {
+    const queryClient = useQueryClient()
     const navigate = useNavigate()
     const token = getCookie('accessToken')
     const isAuthenticated = verifyToken()
 
     useEffect(() => {
         if (isAuthenticated === 'FAILED') {
-            //토큰이 없거나, 인증 실패 시 로그인 페이지로
+            queryClient.clear() // 캐시 삭제
+            // 유효하지 않은 access token 이라면 removeCookie 로 삭제 필요
+            // 다만 refresh token (httponly cookie) 삭제는 서버쪽에서 해야한다.
+
+            // 이제 토큰이 있든 없든 isAuthenticated 는 값이 set 되므로 token 은 조건문에 제외
             alert('로그인이 필요합니다')
             navigate('/login')
         }
