@@ -3,6 +3,7 @@ import { useMutation } from 'react-query'
 import { useNavigate } from 'react-router-dom'
 import { createPost } from '../apis/services/post'
 import PostForm from '../components/posts/PostForm'
+import { AxiosError } from 'axios'
 
 function PostCreatePage() {
     const navigate = useNavigate()
@@ -10,7 +11,7 @@ function PostCreatePage() {
         onSuccess: () => {
             navigate('/posts')
         },
-        onError: (err) => {
+        onError: (err: AxiosError) => {
             console.log(err)
         },
     })
