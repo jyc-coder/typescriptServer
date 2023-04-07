@@ -10,7 +10,7 @@ function LoginPage() {
     const { mutate } = useMutation(login, {
         onSuccess: (data) => {
             setCookie('accessToken', data.accessToken, { path: '/', maxAge: data.exp - data.iat })
-            navigate('./posts') //
+            navigate('/posts') //
         },
         onError: (err: AxiosError) => {
             console.log(err)
